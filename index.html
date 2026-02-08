@@ -1,939 +1,744 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>For You, My Love ❤️</title>
-    <style>
-        /* ==================== GLOBAL STYLES ==================== */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For You, My Love ❤️</title>
 
-        :root {
-            --primary-pink: #FFB3BA;
-            --secondary-lavender: #E0BBE4;
-            --cream: #FFF4E6;
-            --soft-blue: #B4D4FF;
-            --light-red: #FFCCCB;
-            --text-dark: #5A4A42;
-            --white: #FFFFFF;
-            --shadow: rgba(0, 0, 0, 0.1);
-        }
+<style>
 
-        body {
-            font-family: 'Georgia', 'Times New Roman', serif;
-            background: linear-gradient(135deg, var(--cream) 0%, var(--primary-pink) 50%, var(--secondary-lavender) 100%);
-            background-attachment: fixed;
-            color: var(--text-dark);
-            line-height: 1.8;
-            min-height: 100vh;
-            overflow-x: hidden;
-        }
+/* =========================
+   🌈 MAIN BACKGROUND COLOR
+   ========================= */
+body{
+    margin:0;
+    font-family:Georgia,serif;
 
-        /* Floating hearts animation */
-        @keyframes float {
-            0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0.6; }
-            50% { transform: translateY(-20px) rotate(10deg); opacity: 1; }
-        }
+    /* Change page background gradient here */
+    background:linear-gradient(135deg,#fff4e6,#ffb3ba,#e0bbe4);
 
-        .floating-hearts {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 1;
-            overflow: hidden;
-        }
+    min-height:100vh;
+}
 
-        .heart {
-            position: absolute;
-            font-size: 20px;
-            animation: float 4s ease-in-out infinite;
-            opacity: 0.3;
-        }
 
-        /* ==================== HEADER ==================== */
-        header {
-            background: hsla(0, 80%, 49%, 0.422);
-            padding: 20px;
-            text-align: center;
-            box-shadow: 0 4px 20px var(--shadow);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            backdrop-filter: blur(10px);
-        }
+/* =========================
+   💖 HEADER (TOP TITLE AREA)
+   ========================= */
+header{
+    text-align:center;
+    padding:25px;
 
-        h1 {
-            font-size: 2.5em;
-            color: var(--primary-pink);
-            margin-bottom: 10px;
-            text-shadow: 2px 2px 4px var(--shadow);
-        }
+    /* Header background color */
+    background:rgba(255,0,0,0.2);
 
-        .subtitle {
-            font-size: 1.1em;
-            color: rgba(223, 8, 8, 0.947);
-            font-style: italic;
-        }
+    backdrop-filter:blur(8px);
+}
 
-        /* ==================== NAVIGATION ==================== */
-        nav {
-            background: rgba(255, 255, 255, 0.9);
-            padding: 15px;
-            margin: 20px auto;
-            max-width: 1200px;
-            border-radius: 20px;
-            box-shadow: 0 8px 25px var(--shadow);
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            justify-content: center;
-            align-items: center;
-            position: relative;
-            z-index: 10;
-        }
+/* Main title: "For You, My Love" */
+h1{
+    color:#ff4d6d;   /* Change heading color here */
+}
 
-        .nav-btn {
-            padding: 12px 25px;
-            background: linear-gradient(135deg, var(--primary-pink), var(--secondary-lavender));
-            color: white;
-            border: none;
-            border-radius: 25px;
-            cursor: pointer;
-            font-size: 1em;
-            font-family: inherit;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px var(--shadow);
-        }
+/* Subtitle under heading */
+.subtitle{
+    color:#c70039;  /* Change subtitle color here */
+    font-style:italic;
+}
 
-        .nav-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(224, 187, 228, 0.5);
-        }
 
-        .nav-btn.active {
-            background: linear-gradient(135deg, var(--secondary-lavender), var(--soft-blue));
-            transform: scale(1.05);
-        }
+/* =========================
+   📌 NAVBAR (BUTTON AREA)
+   ========================= */
+nav{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    gap:10px;
+    padding:15px;
+}
 
-        .add-letter-btn {
-            background: linear-gradient(135deg, #FF69B4, #FF1493);
-            font-weight: bold;
-            margin-left: 10px;
-        }
+/* Normal buttons */
+button{
+    border:none;
+    border-radius:20px;
+    padding:10px 18px;
+    cursor:pointer;
 
-        /* ==================== MAIN CONTENT ==================== */
-        main {
-            max-width: 900px;
-            margin: 30px auto;
-            padding: 20px;
-            position: relative;
-            z-index: 10;
-        }
+    /* Button background */
+    background:linear-gradient(135deg,#ffb3ba,#e0bbe4);
 
-        .letter-container {
-            background: rgba(255, 255, 255, 0.95);
-            padding: 40px;
-            border-radius: 20px;
-            box-shadow: 0 10px 40px var(--shadow);
-            margin-bottom: 30px;
-            animation: fadeIn 0.5s ease-in;
-            position: relative;
-        }
+    /* Button text color */
+    color:white;
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+    font-weight:bold;
+}
 
-        .letter-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 30px;
-            padding-bottom: 15px;
-            border-bottom: 2px solid var(--primary-pink);
-            flex-wrap: wrap;
-            gap: 10px;
-        }
+/* Active (selected) button */
+button.active{
 
-        .letter-title {
-            font-size: 2em;
-            color: var(--primary-pink);
-            cursor: pointer;
-            flex: 1;
-            min-width: 200px;
-        }
+    /* Active button background */
+    background:linear-gradient(135deg,#b4d4ff,#e0bbe4);
+}
 
-        .letter-actions {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
 
-        .action-btn {
-            padding: 8px 15px;
-            background: var(--soft-blue);
-            color: white;
-            border: none;
-            border-radius: 15px;
-            cursor: pointer;
-            font-size: 0.9em;
-            transition: all 0.3s ease;
-        }
+/* =========================
+   📖 MAIN CONTENT AREA
+   ========================= */
+main{
+    max-width:900px;
+    margin:auto;
+    padding:20px;
+}
 
-        .action-btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 4px 12px rgba(180, 212, 255, 0.5);
-        }
 
-        .delete-btn {
-            background: #FF6B6B;
-        }
+/* =========================
+   💌 LETTER BOX (TEXT CARD)
+   ========================= */
+.letter{
+    background:white;   /* Letter background */
+    border-radius:20px;
+    padding:35px;
 
-        .letter-content {
-            font-size: 1.1em;
-            line-height: 2;
-            white-space: pre-wrap;
-            min-height: 200px;
-            cursor: text;
-        }
+    box-shadow:0 5px 25px rgba(0,0,0,.1);
 
-        .letter-content[contenteditable="true"] {
-            outline: 2px dashed var(--primary-pink);
-            padding: 15px;
-            border-radius: 10px;
-        }
+    line-height:1.9;
+    font-size:1.1em;
 
-        /* ==================== TOOLBAR ==================== */
-        .toolbar {
-            background: rgba(255, 255, 255, 0.95);
-            padding: 20px;
-            border-radius: 15px;
-            margin-bottom: 20px;
-            display: none;
-            flex-wrap: wrap;
-            gap: 15px;
-            box-shadow: 0 4px 15px var(--shadow);
-            align-items: center;
-        }
+    /* Letter text color */
+    color:#5A4A42;   /* Change letter text color here */
+}
 
-        .toolbar.active {
-            display: flex;
-        }
 
-        .toolbar-group {
-            display: flex;
-            gap: 10px;
-            align-items: center;
-            flex-wrap: wrap;
-        }
+/* =========================
+   📱 MOBILE RESPONSIVE
+   ========================= */
+@media(max-width:700px){
 
-        .toolbar label {
-            font-weight: bold;
-            color: var(--text-dark);
-        }
+    h1{
+        font-size:1.7em;
+    }
 
-        .toolbar select,
-        .toolbar input {
-            padding: 8px 12px;
-            border: 2px solid var(--primary-pink);
-            border-radius: 10px;
-            font-family: inherit;
-            font-size: 1em;
-        }
+    .letter{
+        padding:22px;
+        font-size:1em;
+    }
+}
 
-        .toolbar input[type="color"] {
-            width: 50px;
-            height: 40px;
-            cursor: pointer;
-        }
+</style>
 
-        .toolbar button {
-            padding: 10px 20px;
-            background: var(--secondary-lavender);
-            color: white;
-            border: none;
-            border-radius: 12px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .toolbar button:hover {
-            background: var(--primary-pink);
-            transform: scale(1.05);
-        }
-
-        /* ==================== MUSIC PLAYER ==================== */
-        .music-toggle {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            width: 60px;
-            height: 60px;
-            background: linear-gradient(135deg, var(--primary-pink), var(--secondary-lavender));
-            border: none;
-            border-radius: 50%;
-            cursor: pointer;
-            font-size: 1.5em;
-            box-shadow: 0 6px 20px var(--shadow);
-            transition: all 0.3s ease;
-            z-index: 1000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-        }
-
-        .music-toggle:hover {
-            transform: scale(1.1) rotate(10deg);
-        }
-
-        /* ==================== RESPONSIVE DESIGN ==================== */
-        @media (max-width: 768px) {
-            h1 {
-                font-size: 1.8em;
-            }
-
-            .subtitle {
-                font-size: 0.9em;
-            }
-
-            nav {
-                padding: 10px;
-            }
-
-            .nav-btn {
-                padding: 10px 15px;
-                font-size: 0.9em;
-            }
-
-            main {
-                padding: 15px;
-                margin: 15px auto;
-            }
-
-            .letter-container {
-                padding: 25px 20px;
-            }
-
-            .letter-title {
-                font-size: 1.5em;
-            }
-
-            .letter-content {
-                font-size: 1em;
-            }
-
-            .toolbar {
-                padding: 15px;
-            }
-
-            .music-toggle {
-                width: 50px;
-                height: 50px;
-                bottom: 20px;
-                right: 20px;
-                font-size: 1.2em;
-            }
-        }
-
-        @media (max-width: 480px) {
-            h1 {
-                font-size: 1.5em;
-            }
-
-            .letter-header {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-
-            .letter-actions {
-                width: 100%;
-                justify-content: flex-start;
-            }
-
-            .toolbar-group {
-                width: 100%;
-            }
-
-            .toolbar select,
-            .toolbar input {
-                flex: 1;
-            }
-        }
-
-        /* ==================== SPECIAL SECTIONS ==================== */
-        .special-section {
-            background: linear-gradient(135deg, rgba(255, 179, 186, 0.3), rgba(224, 187, 228, 0.3));
-            padding: 30px;
-            border-radius: 15px;
-            margin-top: 20px;
-            border-left: 5px solid var(--primary-pink);
-        }
-
-        .reasons-list {
-            list-style: none;
-            padding: 0;
-        }
-
-        .reasons-list li {
-            padding: 15px;
-            margin: 10px 0;
-            background: rgba(255, 255, 255, 0.8);
-            border-radius: 10px;
-            border-left: 3px solid var(--secondary-lavender);
-            transition: all 0.3s ease;
-        }
-
-        .reasons-list li:hover {
-            transform: translateX(10px);
-            box-shadow: 0 4px 12px var(--shadow);
-        }
-
-        /* ==================== ANIMATIONS ==================== */
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-        }
-
-        .pulse {
-            animation: pulse 2s ease-in-out infinite;
-        }
-
-        /* ==================== MODAL ==================== */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.7);
-            z-index: 2000;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .modal.active {
-            display: flex;
-        }
-
-        .modal-content {
-            background: white;
-            padding: 30px;
-            border-radius: 20px;
-            max-width: 500px;
-            width: 90%;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
-        }
-
-        .modal-content input {
-            width: 100%;
-            padding: 12px;
-            margin: 15px 0;
-            border: 2px solid var(--primary-pink);
-            border-radius: 10px;
-            font-size: 1.1em;
-            font-family: inherit;
-        }
-
-        .modal-buttons {
-            display: flex;
-            gap: 10px;
-            justify-content: flex-end;
-            margin-top: 20px;
-        }
-
-        .modal-buttons button {
-            padding: 10px 25px;
-            border: none;
-            border-radius: 12px;
-            cursor: pointer;
-            font-size: 1em;
-            transition: all 0.3s ease;
-        }
-
-        .confirm-btn {
-            background: var(--primary-pink);
-            color: white;
-        }
-
-        .cancel-btn {
-            background: #ddd;
-            color: var(--text-dark);
-        }
-    </style>
 </head>
+
 <body>
-    <!-- Floating Hearts Background -->
-    <div class="floating-hearts" id="floatingHearts"></div>
 
-    <!-- Header -->
-    <header>
-        <h1>💕 For You, My LUV, My Shanshi 💕</h1>
-        <p class="subtitle">Distance means nothing when you mean everything</p>
-    </header>
+<header>
+<h1>💕 For You, My LUV, My Shanshi 💕</h1>
+<p class="subtitle">Distance means nothing when you mean everything</p>
+</header>
 
-    <!-- Navigation -->
-    <nav id="navigation">
-        <button class="add-letter-btn" onclick="addNewLetter()">+ Add New Letter</button>
-    </nav>
+<nav id="nav"></nav>
 
-    <!-- Main Content -->
-    <main id="mainContent"></main>
+<main id="content"></main>
 
-    <!-- Toolbar -->
-    <div class="toolbar" id="toolbar">
-        <div class="toolbar-group">
-            <label>Font:</label>
-            <select id="fontFamily" onchange="applyFormatting()">
-                <option value="Georgia, serif">Georgia</option>
-                <option value="'Times New Roman', serif">Times New Roman</option>
-                <option value="'Courier New', monospace">Courier New</option>
-                <option value="Arial, sans-serif">Arial</option>
-                <option value="'Comic Sans MS', cursive">Comic Sans</option>
-                <option value="'Brush Script MT', cursive">Brush Script</option>
-            </select>
-        </div>
-        
-        <div class="toolbar-group">
-            <label>Size:</label>
-            <select id="fontSize" onchange="applyFormatting()">
-                <option value="0.9em">Small</option>
-                <option value="1.1em" selected>Medium</option>
-                <option value="1.3em">Large</option>
-                <option value="1.5em">Extra Large</option>
-            </select>
-        </div>
-        
-        <div class="toolbar-group">
-            <label>Color:</label>
-            <input type="color" id="textColor" value="#5A4A42" onchange="applyFormatting()">
-        </div>
-        
-        <div class="toolbar-group">
-            <label>Align:</label>
-            <select id="textAlign" onchange="applyFormatting()">
-                <option value="left">Left</option>
-                <option value="center">Center</option>
-                <option value="right">Right</option>
-                <option value="justify">Justify</option>
-            </select>
-        </div>
-        
-        <button onclick="saveCurrentLetter()">💾 Save Changes</button>
-    </div>
+<script>
 
-    <!-- Music Toggle -->
-    <button class="music-toggle" id="musicToggle" onclick="toggleMusic()" title="Toggle Music">🎵</button>
+let letters = [
 
-    <!-- Modal for New Letter -->
-    <div class="modal" id="newLetterModal">
-        <div class="modal-content">
-            <h2 style="color: var(--primary-pink); margin-bottom: 15px;">Create New Letter</h2>
-            <input type="text" id="newLetterTitle" placeholder="Enter letter title..." maxlength="50">
-            <div class="modal-buttons">
-                <button class="cancel-btn" onclick="closeModal()">Cancel</button>
-                <button class="confirm-btn" onclick="createNewLetter()">Create</button>
-            </div>
-        </div>
-    </div>
+/* ==================== WELCOME ==================== */
+{
+title:"Welcome 💖",
+text:`Hi my love,
 
-    <script>
-        // ==================== GLOBAL VARIABLES ====================
-        let letters = [];
-        let currentLetterId = null;
-        let currentEditingElement = null;
-        let musicPlaying = false;
+If you’re here right now,
+it means somehow, in this busy world,
+you still chose me.
+You chose my heart.
+And that makes me smile in ways I can’t explain.
 
-        // ==================== INITIALIZATION ====================
-        function init() {
-            createFloatingHearts();
-            loadLetters();
-            
-            // Create default letters if none exist
-            if (letters.length === 0) {
-                createDefaultLetters();
-            }
-            
-            renderNavigation();
-            if (letters.length > 0) {
-                showLetter(letters[0].id);
-            }
-        }
+This little world is made only for you, jaan.
+Every word here, every feeling, every thought
+has your name hidden inside it.
+It’s my safe place… and I hope it becomes yours too.
 
-        // ==================== FLOATING HEARTS ====================
-        function createFloatingHearts() {
-            const container = document.getElementById('floatingHearts');
-            const heartSymbols = ['💕', '💖', '💗', '💝', '💓', '✨', '⭐'];
-            
-            for (let i = 0; i < 15; i++) {
-                const heart = document.createElement('div');
-                heart.className = 'heart';
-                heart.textContent = heartSymbols[Math.floor(Math.random() * heartSymbols.length)];
-                heart.style.left = Math.random() * 100 + '%';
-                heart.style.top = Math.random() * 100 + '%';
-                heart.style.animationDelay = Math.random() * 4 + 's';
-                heart.style.fontSize = (Math.random() * 20 + 15) + 'px';
-                container.appendChild(heart);
-            }
-        }
+Whenever life feels heavy,
+whenever you’re tired, confused, or quiet,
+whenever you don’t feel like talking to anyone…
+come here.
+Come to me.
 
-        // ==================== DEFAULT LETTERS ====================
-        function createDefaultLetters() {
-            letters = [
-                {
-                    id: Date.now(),
-                    title: 'Good Morning, My Love ☀️',
-                    content: `Good morning, beautiful! ☀️
+I’ll listen.
+I’ll understand.
+Tum samajhte ho na, I’m always on your side.
 
-I hope you slept well and you're ready for an amazing day. Even though we're miles apart, I want you to know that you're the first thing I think about when I wake up.
+Even when I’m not physically there,
+my heart is holding yours.
+Cheering for you.
+Praying for you.
+Missing you a little extra.
 
-Remember: You are stronger than you know, braver than you believe, and loved more than you can imagine.
+I’m always waiting for you, my love.
+With open arms.
+With soft thoughts.
+With so much love. 💗
 
-Have the most wonderful day, my love. I'm always with you in spirit. 💕
+Always yours,
+Your girl 💕`
+},
 
-All my love,
-Your favorite person ❤️`,
-                    styles: {
-                        fontFamily: 'Georgia, serif',
-                        fontSize: '1.1em',
-                        color: '#5A4A42',
-                        textAlign: 'left'
-                    }
-                },
-                {
-                    id: Date.now() + 1,
-                    title: 'When You Feel Sad 🌙',
-                    content: `My Dearest,
+/* ==================== WHY I MADE THIS ==================== */
+{
+title:"Why I Made This 💌",
+text:`My love,
 
-I know some days are harder than others. When you feel sad or lonely, I want you to read this and remember:
+I made this for you
+because some days are really hard.
+Because sometimes you smile outside
+but inside you’re tired, quiet, or hurting.
 
-You are not alone. Even when we're apart, my heart is always with you. Close your eyes and imagine me giving you the warmest, tightest hug.
+I made this because distance hurts, jaan.
+Because not being able to hold your hand,
+not hearing your voice whenever I want,
+not seeing you when I miss you…
+it breaks my heart a little every day.
 
-This distance is temporary, but our love is forever. Every moment apart is one moment closer to being together again.
+And still, I stay strong.
+For you.
+For us.
 
-You are my sunshine on cloudy days, my calm in the storm, my everything. 
+I made this because you matter to me.
+More than you probably realize.
+More than I know how to explain in words.
 
-It's okay to cry. It's okay to feel. But never forget how incredibly special you are to me.
+I wanted you to have a place
+where you always feel safe,
+always feel understood,
+always feel loved…
+even when I’m not around.
 
-I love you more than words can express. Always and forever.
+Whenever you feel lonely,
+whenever you doubt yourself,
+whenever life feels too heavy,
+come here, okay?
+Come to me.
 
-Yours eternally,
-Me 💖`,
-                    styles: {
-                        fontFamily: 'Georgia, serif',
-                        fontSize: '1.1em',
-                        color: '#5A4A42',
-                        textAlign: 'left'
-                    }
-                },
-                {
-                    id: Date.now() + 2,
-                    title: 'Reasons I Love You 💝',
-                    content: `Here are just a few of the infinite reasons why I love you:
+This is my hug in digital form. 🫂
+My way of holding you from far away.
+My way of whispering,
+“I’m here. I’m yours. And I’m not going anywhere.”
 
-- Your beautiful smile that lights up my entire world
-- The way you laugh at my silly jokes
-- Your kindness and compassion toward everyone
-- How you make me feel like the luckiest person alive
-- Your strength during difficult times
-- The little things you do that show you care
-- How you understand me like no one else
-- Your dreams and ambitions that inspire me
-- The way you see beauty in everything
-- Simply being YOU - authentic, genuine, and perfect
+I love you,
+always. 💗`
+},
 
-This list could go on forever, because loving you is the easiest thing I've ever done.
+/* ==================== WHEN YOU ARE TIRED ==================== */
+{
+title:"When You Are Tired 😴",
+text:`My love,
 
-You are my person, my best friend, my soulmate.
+I see you.
+I see how hard you try every single day.
+I see how much responsibility, pressure, and worry
+you carry silently on your shoulders.
 
-Forever yours,
-Your biggest fan ❤️`,
-                    styles: {
-                        fontFamily: 'Georgia, serif',
-                        fontSize: '1.1em',
-                        color: '#5A4A42',
-                        textAlign: 'left'
-                    }
-                },
-                {
-                    id: Date.now() + 3,
-                    title: 'Good Night, Sweet Dreams 🌙',
-                    content: `Good night, my love 🌙
+Sometimes you don’t complain.
+Sometimes you just say, “I’m fine,”
+even when you’re exhausted inside.
+Tum samajhte ho na… I notice that.
 
-As you close your eyes tonight, I want you to know that you're loved beyond measure.
+You don’t have to be strong every day, jaan.
+You don’t have to prove anything to anyone.
+Not to the world.
+Not even to me.
 
-May your dreams be filled with happiness, warmth, and all the beautiful things you deserve. Dream of us together, making memories and living our best life.
+With me, you’re allowed to be tired.
+You’re allowed to be weak.
+You’re allowed to rest.
 
-I'll be dreaming of you, as always.
+So please…
+Rest when your body asks you to.
+Breathe when your mind feels crowded.
+Close your eyes and remember
+that someone loves you deeply.
 
-Sleep peacefully, knowing that tomorrow is a new day filled with endless possibilities. And no matter what, I'll always be here for you.
+And that someone is me. 💗
 
-Sweet dreams, my darling.
+I’m so proud of you.
+For trying.
+For not giving up.
+For being you.
 
-Until we meet in dreamland,
-Your forever love 💕✨`,
-                    styles: {
-                        fontFamily: 'Georgia, serif',
-                        fontSize: '1.1em',
-                        color: '#5A4A42',
-                        textAlign: 'left'
-                    }
-                }
-            ];
-            saveLetters();
-        }
+No matter what,
+I’m always standing beside you.
+Holding your hand.
+Cheering for you.
 
-        // ==================== LOCAL STORAGE ====================
-        function saveLetters() {
-            localStorage.setItem('loveletters', JSON.stringify(letters));
-        }
+Always. 💕`
+},
 
-        function loadLetters() {
-            const stored = localStorage.getItem('loveletters');
-            if (stored) {
-                letters = JSON.parse(stored);
-            }
-        }
+/* ==================== WHEN YOU MISS ME ==================== */
+{
+title:"When You Miss Me 💭",
+text:`My love,
 
-        // ==================== NAVIGATION ====================
-        function renderNavigation() {
-            const nav = document.getElementById('navigation');
-            const addButton = nav.querySelector('.add-letter-btn');
-            
-            // Clear existing buttons except add button
-            nav.innerHTML = '';
-            nav.appendChild(addButton);
-            
-            // Add letter buttons
-            letters.forEach(letter => {
-                const btn = document.createElement('button');
-                btn.className = 'nav-btn';
-                btn.textContent = letter.title;
-                btn.onclick = () => showLetter(letter.id);
-                if (letter.id === currentLetterId) {
-                    btn.classList.add('active');
-                }
-                nav.appendChild(btn);
-            });
-        }
+If you’re missing me right now,
+maybe it’s late.
+Maybe you’re alone with your thoughts.
+Maybe something reminded you of me.
 
-        // ==================== DISPLAY LETTER ====================
-        function showLetter(letterId) {
-            currentLetterId = letterId;
-            const letter = letters.find(l => l.id === letterId);
-            if (!letter) return;
-            
-            const main = document.getElementById('mainContent');
-            main.innerHTML = `
-                <div class="letter-container">
-                    <div class="letter-header">
-                        <h2 class="letter-title" onclick="editTitle(${letter.id})">${letter.title}</h2>
-                        <div class="letter-actions">
-                            <button class="action-btn" onclick="editContent(${letter.id})">✏️ Edit</button>
-                            <button class="action-btn delete-btn" onclick="deleteLetter(${letter.id})">🗑️ Delete</button>
-                        </div>
-                    </div>
-                    <div class="letter-content" id="content-${letter.id}" style="
-                        font-family: ${letter.styles.fontFamily};
-                        font-size: ${letter.styles.fontSize};
-                        color: ${letter.styles.color};
-                        text-align: ${letter.styles.textAlign};
-                    ">${letter.content}</div>
-                </div>
-            `;
-            
-            renderNavigation();
-            hideToolbar();
-        }
+So close your eyes for a moment, jaan.
+Take a deep breath.
+And imagine me sitting beside you,
+holding your hand,
+resting my head on your shoulder.
 
-        // ==================== EDIT TITLE ====================
-        function editTitle(letterId) {
-            const letter = letters.find(l => l.id === letterId);
-            if (!letter) return;
-            
-            const newTitle = prompt('Enter new title:', letter.title);
-            if (newTitle && newTitle.trim()) {
-                letter.title = newTitle.trim();
-                saveLetters();
-                showLetter(letterId);
-            }
-        }
+Feel my heart next to yours.
+Feel how it still beats for you,
+no matter how far we are.
 
-        // ==================== EDIT CONTENT ====================
-        function editContent(letterId) {
-            const letter = letters.find(l => l.id === letterId);
-            if (!letter) return;
-            
-            const contentElement = document.getElementById(`content-${letterId}`);
-            contentElement.contentEditable = true;
-            contentElement.focus();
-            currentEditingElement = contentElement;
-            
-            // Show toolbar
-            showToolbar();
-            
-            // Set toolbar values
-            document.getElementById('fontFamily').value = letter.styles.fontFamily;
-            document.getElementById('fontSize').value = letter.styles.fontSize;
-            document.getElementById('textColor').value = rgbToHex(letter.styles.color);
-            document.getElementById('textAlign').value = letter.styles.textAlign;
-        }
+Distance is temporary, my love.
+These days apart will pass.
+These empty spaces will fill again.
+One day, we won’t have to say “I miss you” so much.
 
-        // ==================== TOOLBAR ====================
-        function showToolbar() {
-            document.getElementById('toolbar').classList.add('active');
-        }
+But my love for you?
+That is permanent.
+That is forever.
+That never takes a break.
 
-        function hideToolbar() {
-            document.getElementById('toolbar').classList.remove('active');
-            if (currentEditingElement) {
-                currentEditingElement.contentEditable = false;
-                currentEditingElement = null;
-            }
-        }
+Even when I’m busy.
+Even when I’m quiet.
+Even when we don’t talk much.
+I’m still thinking of you.
 
-        function applyFormatting() {
-            if (!currentEditingElement) return;
-            
-            const fontFamily = document.getElementById('fontFamily').value;
-            const fontSize = document.getElementById('fontSize').value;
-            const textColor = document.getElementById('textColor').value;
-            const textAlign = document.getElementById('textAlign').value;
-            
-            currentEditingElement.style.fontFamily = fontFamily;
-            currentEditingElement.style.fontSize = fontSize;
-            currentEditingElement.style.color = textColor;
-            currentEditingElement.style.textAlign = textAlign;
-        }
+I miss you too, jaan.
+More than I show.
+More than I say.
+Every single day. 💖
 
-        function saveCurrentLetter() {
-            if (!currentLetterId || !currentEditingElement) return;
-            
-            const letter = letters.find(l => l.id === currentLetterId);
-            if (!letter) return;
-            
-            letter.content = currentEditingElement.innerText;
-            letter.styles = {
-                fontFamily: document.getElementById('fontFamily').value,
-                fontSize: document.getElementById('fontSize').value,
-                color: document.getElementById('textColor').value,
-                textAlign: document.getElementById('textAlign').value
-            };
-            
-            saveLetters();
-            hideToolbar();
-            showLetter(currentLetterId);
-            
-            alert('✨ Changes saved successfully!');
-        }
+Always yours,
+Your girl 💕`
+},
 
-        // ==================== DELETE LETTER ====================
-        function deleteLetter(letterId) {
-            if (letters.length === 1) {
-                alert('❌ You must keep at least one letter!');
-                return;
-            }
-            
-            if (confirm('Are you sure you want to delete this letter?')) {
-                letters = letters.filter(l => l.id !== letterId);
-                saveLetters();
-                renderNavigation();
-                showLetter(letters[0].id);
-            }
-        }
+/* ==================== WHEN YOU CAN'T SLEEP ==================== */
+{
+title:"When You Can’t Sleep 🌙",
+text:`My sleepy love,
 
-        // ==================== NEW LETTER ====================
-        function addNewLetter() {
-            document.getElementById('newLetterModal').classList.add('active');
-            document.getElementById('newLetterTitle').value = '';
-            document.getElementById('newLetterTitle').focus();
-        }
+If you’re awake right now,
+staring at the ceiling,
+lost in thoughts you didn’t invite…
+I know how that feels.
 
-        function closeModal() {
-            document.getElementById('newLetterModal').classList.remove('active');
-        }
+Sometimes your mind doesn’t want to rest,
+even when your body is tired.
+Sometimes worries, memories, and “what ifs”
+keep coming quietly.
 
-        function createNewLetter() {
-            const title = document.getElementById('newLetterTitle').value.trim();
-            if (!title) {
-                alert('Please enter a title for your letter!');
-                return;
-            }
-            
-            const newLetter = {
-                id: Date.now(),
-                title: title,
-                content: 'Start writing your beautiful message here...\n\nPour your heart out! 💕',
-                styles: {
-                    fontFamily: 'Georgia, serif',
-                    fontSize: '1.1em',
-                    color: '#5A4A42',
-                    textAlign: 'left'
-                }
-            };
-            
-            letters.push(newLetter);
-            saveLetters();
-            closeModal();
-            renderNavigation();
-            showLetter(newLetter.id);
-        }
+It’s okay, jaan.
+It’s okay to stop thinking for a while.
+It’s okay to let everything go… just for tonight.
 
-        // ==================== MUSIC ====================
-        function toggleMusic() {
-            const btn = document.getElementById('musicToggle');
-            musicPlaying = !musicPlaying;
-            
-            if (musicPlaying) {
-                btn.textContent = '🎵';
-                btn.style.animation = 'pulse 1s ease-in-out infinite';
-                // In a real implementation, you would start background music here
-                // For example: document.getElementById('backgroundMusic').play();
-            } else {
-                btn.textContent = '🔇';
-                btn.style.animation = 'none';
-                // For example: document.getElementById('backgroundMusic').pause();
-            }
-        }
+Imagine me lying beside you.
+My hand in yours.
+My fingers playing with your hair.
+My voice low and soft near your ear.
 
-        // ==================== UTILITY FUNCTIONS ====================
-        function rgbToHex(rgb) {
-            // If already hex, return it
-            if (rgb.startsWith('#')) return rgb;
-            
-            // Convert rgb(r, g, b) to hex
-            const result = rgb.match(/\d+/g);
-            if (!result) return '#5A4A42';
-            
-            return '#' + result.map(x => {
-                const hex = parseInt(x).toString(16);
-                return hex.length === 1 ? '0' + hex : hex;
-            }).join('');
-        }
+I’m whispering to you…
 
-        // ==================== EVENT LISTENERS ====================
-        document.addEventListener('keydown', (e) => {
-            // Enter on modal
-            if (e.key === 'Enter' && document.getElementById('newLetterModal').classList.contains('active')) {
-                createNewLetter();
-            }
-            // Escape to close modal
-            if (e.key === 'Escape' && document.getElementById('newLetterModal').classList.contains('active')) {
-                closeModal();
-            }
-        });
+You’re safe.
+You’re loved.
+You’re doing your best.
+And that is enough.
 
-        // ==================== START APPLICATION ====================
-        window.onload = init;
-    </script>
+Nothing bad is going to happen.
+You don’t have to fight alone.
+I’m right here. Always.
+
+So close your eyes now, my love.
+Let your heart rest.
+Let your soul breathe.
+
+Sleep peacefully. 💗
+I’ll be in your dreams. 💫
+
+Always yours,
+Your girl 💕`
+},
+
+/* ==================== WHEN YOU'RE ANGRY ==================== */
+{
+title:"When You’re Angry 💢",
+text:`My love,
+
+I know life hurts sometimes.
+I know people disappoint you.
+I know situations feel unfair.
+And I know you keep a lot inside.
+
+Sometimes the anger comes suddenly,
+like a storm in your heart.
+Sometimes you don’t even want to talk.
+You just want everything to stop.
+
+It’s okay, jaan.
+Your feelings are real.
+Your frustration matters.
+
+But please…
+Breathe with me for a moment.
+Pause.
+Put your hand on your heart
+and remember who you are.
+
+Don’t let anger steal your softness.
+Don’t let it take away
+your kindness, your patience, your beautiful soul.
+
+That softness is what makes you you.
+That’s what I fell in love with. 💗
+
+No matter what happened,
+no matter who hurt you,
+I’m on your side.
+Not sometimes.
+Not only on good days.
+
+Always. 💖
+
+With you,
+Through every mood,
+Every storm,
+Every silence.
+
+Your girl 💕`
+},
+
+/* ==================== WHEN YOU FEEL LONELY ==================== */
+{
+title:"When You Feel Lonely 🌧️",
+text:`My love,
+
+If you’re feeling lonely right now,
+even when people are around you…
+I know that kind of loneliness.
+The one that sits quietly in your heart.
+
+Sometimes you laugh.
+Sometimes you talk.
+Sometimes you act normal.
+But inside, you feel empty.
+Disconnected.
+Unseen.
+
+Jaan, listen to me…
+You are never alone.
+Not today.
+Not on your worst days.
+Not on your quiet days.
+Not ever.
+
+My heart is always with you.
+In every breath you take.
+In every prayer I whisper.
+In every thought that randomly becomes about you.
+
+Even when we’re not talking.
+Even when there’s silence.
+Even when miles are between us…
+I’m still holding you.
+
+I’m holding your worries.
+Your fears.
+Your tiredness.
+Your tears you don’t show.
+
+Whenever you feel this way,
+close your eyes and come to me.
+Let me be your comfort.
+Let me be your home.
+
+I’m yours.
+Completely.
+And you’re so loved. 🫂💗
+
+Always,
+Your girl 💕`
+},
+
+/* ==================== WHEN I CAN'T REPLY ==================== */
+{
+title:"When I Can’t Answer 📱",
+text:`My love,
+
+If someday I don’t reply fast,
+if my messages come late,
+if you’re waiting and checking your phone…
+please don’t overthink, jaan.
+
+It never means I forgot you.
+It never means you’re less important.
+It never means my feelings changed.
+
+Sometimes life gets busy.
+Sometimes I’m stuck in work, family, or thoughts.
+Sometimes I’m tired and quiet.
+
+But even then…
+you’re still in my heart.
+You’re still in my mind.
+You’re still my first thought.
+
+I always come back.
+With the same love.
+With the same care.
+With the same “I miss you” hidden inside.
+
+Because no matter how busy I am,
+no matter where I am…
+my heart knows only one place.
+
+You. 💗
+
+Always yours,
+Your girl 💕`
+},
+
+/* ==================== WHEN I HURT YOU ==================== */
+{
+title:"When I Hurt You 💔",
+text:`My love,
+
+If I ever hurt you…
+with my words,
+with my silence,
+with my mood,
+or with my mistakes…
+I’m truly sorry, jaan.
+
+I never want to be the reason
+your smile fades.
+I never want to be the reason
+your heart feels heavy.
+
+Sometimes I say things without thinking.
+Sometimes I react emotionally.
+Sometimes I don’t express myself well.
+But please know…
+I never mean to hurt you.
+
+Your feelings matter to me.
+So much.
+More than my ego.
+More than being “right.”
+More than winning an argument.
+
+If something hurts you,
+I want to know.
+I want to understand.
+Not to defend myself…
+but to become better for you.
+
+Let me fix it.
+Let me learn.
+Let me grow.
+Let me love you in the way you deserve.
+
+Because I love you too much
+to lose you over pride, anger, or silence. ❤️
+You are precious to me.
+You are my person.
+
+Always trying to be better,
+For you,
+Your girl 💕`
+},
+
+/* ==================== WHEN WE FIGHT ==================== */
+{
+title:"When We Fight 💢",
+text:`My love,
+
+If we ever fight…
+if voices get quiet,
+if messages become cold,
+if there’s distance between us for a while…
+please remember this, jaan.
+
+It’s never you vs me.
+Never.
+It has always been us vs the problems.
+Us trying to understand each other.
+Us learning.
+Us growing.
+
+Sometimes we get emotional.
+Sometimes we misunderstand.
+Sometimes we say things we don’t mean.
+We’re human.
+We’re learning.
+
+But no argument,
+no mistake,
+no bad day
+is ever bigger than my love for you.
+
+Even when I’m upset,
+I still care.
+I still worry.
+I still miss you.
+
+I don’t want silence.
+I don’t want distance.
+I want you.
+With all your moods, flaws, and feelings.
+
+So please…
+don’t walk away in anger.
+Don’t think I stopped loving you.
+
+Come back to me, my love. 💗
+Let’s talk.
+Let’s hold hands.
+Let’s choose each other again.
+
+Always choosing us,
+Your girl 💕`
+},
+
+/* ==================== WHEN YOU FEEL IGNORED ==================== */
+{
+title:"When You Feel Ignored 👀",
+text:`My love,
+
+If you ever feel unseen…
+if you feel like I’m distracted,
+busy, or not listening enough…
+please tell me, jaan.
+
+Don’t keep it inside.
+Don’t think you’re being dramatic.
+Don’t think your feelings don’t matter.
+
+They matter.
+You matter.
+So much.
+
+Sometimes I get caught up in things.
+Sometimes I reply late.
+Sometimes I don’t realize
+that you needed more from me in that moment.
+
+But I never, ever want to miss your heart.
+I never want you to feel like
+you’re asking for too much.
+
+With me, you are allowed to want attention.
+You are allowed to want time.
+You are allowed to want love.
+
+Because you are my priority.
+Not only when it’s easy.
+Not only when I’m free.
+
+Always. 💖
+
+You’re important to me.
+More than you know.
+
+Your girl 💕`
+},
+
+/* ==================== WHEN YOU DOUBT MY LOVE ==================== */
+{
+title:"When You Doubt My Love 💭",
+text:`My love,
+
+If someday a small doubt comes into your heart…
+if you start wondering,
+“Does she still love me?”
+“Am I still important to her?”
+“Do I still matter?”
+please come here and read this, jaan.
+
+Yes, I love you.
+Not just when things are perfect.
+Not just when we’re happy.
+Even on hard days.
+
+Yes, you matter.
+Your dreams.
+Your fears.
+Your insecurities.
+Your whole heart.
+
+Yes, I choose you.
+Again and again.
+Even when it’s difficult.
+Even when I’m tired.
+Even when life is confusing.
+
+I don’t love you out of habit.
+I love you with intention.
+With feeling.
+With my whole soul.
+
+Every day, I wake up and choose you.
+Every night, I fall asleep thinking of you.
+And tomorrow… I’ll do it again.
+
+Forever. ❤️
+
+Always yours,
+Your girl 💕`
+},
+
+/* ==================== GOOD MORNING ==================== */
+
+
+/* ==================== FINAL PAGE ==================== */
+{
+title:"Come Back to Me 🌹",
+text:`Whenever life hurts,
+come back here.
+
+I’ll be waiting.
+
+With love.
+With patience.
+With you.
+
+Forever. ❤️`
+}
+
+];
+
+let nav = document.getElementById("nav");
+let content = document.getElementById("content");
+
+function load(){
+nav.innerHTML="";
+letters.forEach((l,i)=>{
+let btn=document.createElement("button");
+btn.textContent=l.title;
+btn.onclick=()=>show(i);
+if(i===0)btn.classList.add("active");
+nav.appendChild(btn);
+});
+show(0);
+}
+
+function show(i){
+document.querySelectorAll("nav button").forEach(b=>b.classList.remove("active"));
+nav.children[i].classList.add("active");
+
+content.innerHTML=`
+<div class="letter">
+<pre style="white-space:pre-wrap;font-family:inherit">${letters[i].text}</pre>
+</div>`;
+}
+
+load();
+
+</script>
+
 </body>
 </html>
