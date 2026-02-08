@@ -1,0 +1,939 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For You, My Love ❤️</title>
+    <style>
+        /* ==================== GLOBAL STYLES ==================== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-pink: #FFB3BA;
+            --secondary-lavender: #E0BBE4;
+            --cream: #FFF4E6;
+            --soft-blue: #B4D4FF;
+            --light-red: #FFCCCB;
+            --text-dark: #5A4A42;
+            --white: #FFFFFF;
+            --shadow: rgba(0, 0, 0, 0.1);
+        }
+
+        body {
+            font-family: 'Georgia', 'Times New Roman', serif;
+            background: linear-gradient(135deg, var(--cream) 0%, var(--primary-pink) 50%, var(--secondary-lavender) 100%);
+            background-attachment: fixed;
+            color: var(--text-dark);
+            line-height: 1.8;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Floating hearts animation */
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0.6; }
+            50% { transform: translateY(-20px) rotate(10deg); opacity: 1; }
+        }
+
+        .floating-hearts {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .heart {
+            position: absolute;
+            font-size: 20px;
+            animation: float 4s ease-in-out infinite;
+            opacity: 0.3;
+        }
+
+        /* ==================== HEADER ==================== */
+        header {
+            background: hsla(0, 80%, 49%, 0.422);
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 4px 20px var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+        }
+
+        h1 {
+            font-size: 2.5em;
+            color: var(--primary-pink);
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px var(--shadow);
+        }
+
+        .subtitle {
+            font-size: 1.1em;
+            color: rgba(223, 8, 8, 0.947);
+            font-style: italic;
+        }
+
+        /* ==================== NAVIGATION ==================== */
+        nav {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 15px;
+            margin: 20px auto;
+            max-width: 1200px;
+            border-radius: 20px;
+            box-shadow: 0 8px 25px var(--shadow);
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            z-index: 10;
+        }
+
+        .nav-btn {
+            padding: 12px 25px;
+            background: linear-gradient(135deg, var(--primary-pink), var(--secondary-lavender));
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1em;
+            font-family: inherit;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px var(--shadow);
+        }
+
+        .nav-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(224, 187, 228, 0.5);
+        }
+
+        .nav-btn.active {
+            background: linear-gradient(135deg, var(--secondary-lavender), var(--soft-blue));
+            transform: scale(1.05);
+        }
+
+        .add-letter-btn {
+            background: linear-gradient(135deg, #FF69B4, #FF1493);
+            font-weight: bold;
+            margin-left: 10px;
+        }
+
+        /* ==================== MAIN CONTENT ==================== */
+        main {
+            max-width: 900px;
+            margin: 30px auto;
+            padding: 20px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .letter-container {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px var(--shadow);
+            margin-bottom: 30px;
+            animation: fadeIn 0.5s ease-in;
+            position: relative;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .letter-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--primary-pink);
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .letter-title {
+            font-size: 2em;
+            color: var(--primary-pink);
+            cursor: pointer;
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .letter-actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .action-btn {
+            padding: 8px 15px;
+            background: var(--soft-blue);
+            color: white;
+            border: none;
+            border-radius: 15px;
+            cursor: pointer;
+            font-size: 0.9em;
+            transition: all 0.3s ease;
+        }
+
+        .action-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 12px rgba(180, 212, 255, 0.5);
+        }
+
+        .delete-btn {
+            background: #FF6B6B;
+        }
+
+        .letter-content {
+            font-size: 1.1em;
+            line-height: 2;
+            white-space: pre-wrap;
+            min-height: 200px;
+            cursor: text;
+        }
+
+        .letter-content[contenteditable="true"] {
+            outline: 2px dashed var(--primary-pink);
+            padding: 15px;
+            border-radius: 10px;
+        }
+
+        /* ==================== TOOLBAR ==================== */
+        .toolbar {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            display: none;
+            flex-wrap: wrap;
+            gap: 15px;
+            box-shadow: 0 4px 15px var(--shadow);
+            align-items: center;
+        }
+
+        .toolbar.active {
+            display: flex;
+        }
+
+        .toolbar-group {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .toolbar label {
+            font-weight: bold;
+            color: var(--text-dark);
+        }
+
+        .toolbar select,
+        .toolbar input {
+            padding: 8px 12px;
+            border: 2px solid var(--primary-pink);
+            border-radius: 10px;
+            font-family: inherit;
+            font-size: 1em;
+        }
+
+        .toolbar input[type="color"] {
+            width: 50px;
+            height: 40px;
+            cursor: pointer;
+        }
+
+        .toolbar button {
+            padding: 10px 20px;
+            background: var(--secondary-lavender);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .toolbar button:hover {
+            background: var(--primary-pink);
+            transform: scale(1.05);
+        }
+
+        /* ==================== MUSIC PLAYER ==================== */
+        .music-toggle {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary-pink), var(--secondary-lavender));
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.5em;
+            box-shadow: 0 6px 20px var(--shadow);
+            transition: all 0.3s ease;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+
+        .music-toggle:hover {
+            transform: scale(1.1) rotate(10deg);
+        }
+
+        /* ==================== RESPONSIVE DESIGN ==================== */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.8em;
+            }
+
+            .subtitle {
+                font-size: 0.9em;
+            }
+
+            nav {
+                padding: 10px;
+            }
+
+            .nav-btn {
+                padding: 10px 15px;
+                font-size: 0.9em;
+            }
+
+            main {
+                padding: 15px;
+                margin: 15px auto;
+            }
+
+            .letter-container {
+                padding: 25px 20px;
+            }
+
+            .letter-title {
+                font-size: 1.5em;
+            }
+
+            .letter-content {
+                font-size: 1em;
+            }
+
+            .toolbar {
+                padding: 15px;
+            }
+
+            .music-toggle {
+                width: 50px;
+                height: 50px;
+                bottom: 20px;
+                right: 20px;
+                font-size: 1.2em;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.5em;
+            }
+
+            .letter-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .letter-actions {
+                width: 100%;
+                justify-content: flex-start;
+            }
+
+            .toolbar-group {
+                width: 100%;
+            }
+
+            .toolbar select,
+            .toolbar input {
+                flex: 1;
+            }
+        }
+
+        /* ==================== SPECIAL SECTIONS ==================== */
+        .special-section {
+            background: linear-gradient(135deg, rgba(255, 179, 186, 0.3), rgba(224, 187, 228, 0.3));
+            padding: 30px;
+            border-radius: 15px;
+            margin-top: 20px;
+            border-left: 5px solid var(--primary-pink);
+        }
+
+        .reasons-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .reasons-list li {
+            padding: 15px;
+            margin: 10px 0;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 10px;
+            border-left: 3px solid var(--secondary-lavender);
+            transition: all 0.3s ease;
+        }
+
+        .reasons-list li:hover {
+            transform: translateX(10px);
+            box-shadow: 0 4px 12px var(--shadow);
+        }
+
+        /* ==================== ANIMATIONS ==================== */
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .pulse {
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        /* ==================== MODAL ==================== */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .modal-content input {
+            width: 100%;
+            padding: 12px;
+            margin: 15px 0;
+            border: 2px solid var(--primary-pink);
+            border-radius: 10px;
+            font-size: 1.1em;
+            font-family: inherit;
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+            margin-top: 20px;
+        }
+
+        .modal-buttons button {
+            padding: 10px 25px;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: all 0.3s ease;
+        }
+
+        .confirm-btn {
+            background: var(--primary-pink);
+            color: white;
+        }
+
+        .cancel-btn {
+            background: #ddd;
+            color: var(--text-dark);
+        }
+    </style>
+</head>
+<body>
+    <!-- Floating Hearts Background -->
+    <div class="floating-hearts" id="floatingHearts"></div>
+
+    <!-- Header -->
+    <header>
+        <h1>💕 For You, My LUV, My Shanshi 💕</h1>
+        <p class="subtitle">Distance means nothing when you mean everything</p>
+    </header>
+
+    <!-- Navigation -->
+    <nav id="navigation">
+        <button class="add-letter-btn" onclick="addNewLetter()">+ Add New Letter</button>
+    </nav>
+
+    <!-- Main Content -->
+    <main id="mainContent"></main>
+
+    <!-- Toolbar -->
+    <div class="toolbar" id="toolbar">
+        <div class="toolbar-group">
+            <label>Font:</label>
+            <select id="fontFamily" onchange="applyFormatting()">
+                <option value="Georgia, serif">Georgia</option>
+                <option value="'Times New Roman', serif">Times New Roman</option>
+                <option value="'Courier New', monospace">Courier New</option>
+                <option value="Arial, sans-serif">Arial</option>
+                <option value="'Comic Sans MS', cursive">Comic Sans</option>
+                <option value="'Brush Script MT', cursive">Brush Script</option>
+            </select>
+        </div>
+        
+        <div class="toolbar-group">
+            <label>Size:</label>
+            <select id="fontSize" onchange="applyFormatting()">
+                <option value="0.9em">Small</option>
+                <option value="1.1em" selected>Medium</option>
+                <option value="1.3em">Large</option>
+                <option value="1.5em">Extra Large</option>
+            </select>
+        </div>
+        
+        <div class="toolbar-group">
+            <label>Color:</label>
+            <input type="color" id="textColor" value="#5A4A42" onchange="applyFormatting()">
+        </div>
+        
+        <div class="toolbar-group">
+            <label>Align:</label>
+            <select id="textAlign" onchange="applyFormatting()">
+                <option value="left">Left</option>
+                <option value="center">Center</option>
+                <option value="right">Right</option>
+                <option value="justify">Justify</option>
+            </select>
+        </div>
+        
+        <button onclick="saveCurrentLetter()">💾 Save Changes</button>
+    </div>
+
+    <!-- Music Toggle -->
+    <button class="music-toggle" id="musicToggle" onclick="toggleMusic()" title="Toggle Music">🎵</button>
+
+    <!-- Modal for New Letter -->
+    <div class="modal" id="newLetterModal">
+        <div class="modal-content">
+            <h2 style="color: var(--primary-pink); margin-bottom: 15px;">Create New Letter</h2>
+            <input type="text" id="newLetterTitle" placeholder="Enter letter title..." maxlength="50">
+            <div class="modal-buttons">
+                <button class="cancel-btn" onclick="closeModal()">Cancel</button>
+                <button class="confirm-btn" onclick="createNewLetter()">Create</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ==================== GLOBAL VARIABLES ====================
+        let letters = [];
+        let currentLetterId = null;
+        let currentEditingElement = null;
+        let musicPlaying = false;
+
+        // ==================== INITIALIZATION ====================
+        function init() {
+            createFloatingHearts();
+            loadLetters();
+            
+            // Create default letters if none exist
+            if (letters.length === 0) {
+                createDefaultLetters();
+            }
+            
+            renderNavigation();
+            if (letters.length > 0) {
+                showLetter(letters[0].id);
+            }
+        }
+
+        // ==================== FLOATING HEARTS ====================
+        function createFloatingHearts() {
+            const container = document.getElementById('floatingHearts');
+            const heartSymbols = ['💕', '💖', '💗', '💝', '💓', '✨', '⭐'];
+            
+            for (let i = 0; i < 15; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'heart';
+                heart.textContent = heartSymbols[Math.floor(Math.random() * heartSymbols.length)];
+                heart.style.left = Math.random() * 100 + '%';
+                heart.style.top = Math.random() * 100 + '%';
+                heart.style.animationDelay = Math.random() * 4 + 's';
+                heart.style.fontSize = (Math.random() * 20 + 15) + 'px';
+                container.appendChild(heart);
+            }
+        }
+
+        // ==================== DEFAULT LETTERS ====================
+        function createDefaultLetters() {
+            letters = [
+                {
+                    id: Date.now(),
+                    title: 'Good Morning, My Love ☀️',
+                    content: `Good morning, beautiful! ☀️
+
+I hope you slept well and you're ready for an amazing day. Even though we're miles apart, I want you to know that you're the first thing I think about when I wake up.
+
+Remember: You are stronger than you know, braver than you believe, and loved more than you can imagine.
+
+Have the most wonderful day, my love. I'm always with you in spirit. 💕
+
+All my love,
+Your favorite person ❤️`,
+                    styles: {
+                        fontFamily: 'Georgia, serif',
+                        fontSize: '1.1em',
+                        color: '#5A4A42',
+                        textAlign: 'left'
+                    }
+                },
+                {
+                    id: Date.now() + 1,
+                    title: 'When You Feel Sad 🌙',
+                    content: `My Dearest,
+
+I know some days are harder than others. When you feel sad or lonely, I want you to read this and remember:
+
+You are not alone. Even when we're apart, my heart is always with you. Close your eyes and imagine me giving you the warmest, tightest hug.
+
+This distance is temporary, but our love is forever. Every moment apart is one moment closer to being together again.
+
+You are my sunshine on cloudy days, my calm in the storm, my everything. 
+
+It's okay to cry. It's okay to feel. But never forget how incredibly special you are to me.
+
+I love you more than words can express. Always and forever.
+
+Yours eternally,
+Me 💖`,
+                    styles: {
+                        fontFamily: 'Georgia, serif',
+                        fontSize: '1.1em',
+                        color: '#5A4A42',
+                        textAlign: 'left'
+                    }
+                },
+                {
+                    id: Date.now() + 2,
+                    title: 'Reasons I Love You 💝',
+                    content: `Here are just a few of the infinite reasons why I love you:
+
+- Your beautiful smile that lights up my entire world
+- The way you laugh at my silly jokes
+- Your kindness and compassion toward everyone
+- How you make me feel like the luckiest person alive
+- Your strength during difficult times
+- The little things you do that show you care
+- How you understand me like no one else
+- Your dreams and ambitions that inspire me
+- The way you see beauty in everything
+- Simply being YOU - authentic, genuine, and perfect
+
+This list could go on forever, because loving you is the easiest thing I've ever done.
+
+You are my person, my best friend, my soulmate.
+
+Forever yours,
+Your biggest fan ❤️`,
+                    styles: {
+                        fontFamily: 'Georgia, serif',
+                        fontSize: '1.1em',
+                        color: '#5A4A42',
+                        textAlign: 'left'
+                    }
+                },
+                {
+                    id: Date.now() + 3,
+                    title: 'Good Night, Sweet Dreams 🌙',
+                    content: `Good night, my love 🌙
+
+As you close your eyes tonight, I want you to know that you're loved beyond measure.
+
+May your dreams be filled with happiness, warmth, and all the beautiful things you deserve. Dream of us together, making memories and living our best life.
+
+I'll be dreaming of you, as always.
+
+Sleep peacefully, knowing that tomorrow is a new day filled with endless possibilities. And no matter what, I'll always be here for you.
+
+Sweet dreams, my darling.
+
+Until we meet in dreamland,
+Your forever love 💕✨`,
+                    styles: {
+                        fontFamily: 'Georgia, serif',
+                        fontSize: '1.1em',
+                        color: '#5A4A42',
+                        textAlign: 'left'
+                    }
+                }
+            ];
+            saveLetters();
+        }
+
+        // ==================== LOCAL STORAGE ====================
+        function saveLetters() {
+            localStorage.setItem('loveletters', JSON.stringify(letters));
+        }
+
+        function loadLetters() {
+            const stored = localStorage.getItem('loveletters');
+            if (stored) {
+                letters = JSON.parse(stored);
+            }
+        }
+
+        // ==================== NAVIGATION ====================
+        function renderNavigation() {
+            const nav = document.getElementById('navigation');
+            const addButton = nav.querySelector('.add-letter-btn');
+            
+            // Clear existing buttons except add button
+            nav.innerHTML = '';
+            nav.appendChild(addButton);
+            
+            // Add letter buttons
+            letters.forEach(letter => {
+                const btn = document.createElement('button');
+                btn.className = 'nav-btn';
+                btn.textContent = letter.title;
+                btn.onclick = () => showLetter(letter.id);
+                if (letter.id === currentLetterId) {
+                    btn.classList.add('active');
+                }
+                nav.appendChild(btn);
+            });
+        }
+
+        // ==================== DISPLAY LETTER ====================
+        function showLetter(letterId) {
+            currentLetterId = letterId;
+            const letter = letters.find(l => l.id === letterId);
+            if (!letter) return;
+            
+            const main = document.getElementById('mainContent');
+            main.innerHTML = `
+                <div class="letter-container">
+                    <div class="letter-header">
+                        <h2 class="letter-title" onclick="editTitle(${letter.id})">${letter.title}</h2>
+                        <div class="letter-actions">
+                            <button class="action-btn" onclick="editContent(${letter.id})">✏️ Edit</button>
+                            <button class="action-btn delete-btn" onclick="deleteLetter(${letter.id})">🗑️ Delete</button>
+                        </div>
+                    </div>
+                    <div class="letter-content" id="content-${letter.id}" style="
+                        font-family: ${letter.styles.fontFamily};
+                        font-size: ${letter.styles.fontSize};
+                        color: ${letter.styles.color};
+                        text-align: ${letter.styles.textAlign};
+                    ">${letter.content}</div>
+                </div>
+            `;
+            
+            renderNavigation();
+            hideToolbar();
+        }
+
+        // ==================== EDIT TITLE ====================
+        function editTitle(letterId) {
+            const letter = letters.find(l => l.id === letterId);
+            if (!letter) return;
+            
+            const newTitle = prompt('Enter new title:', letter.title);
+            if (newTitle && newTitle.trim()) {
+                letter.title = newTitle.trim();
+                saveLetters();
+                showLetter(letterId);
+            }
+        }
+
+        // ==================== EDIT CONTENT ====================
+        function editContent(letterId) {
+            const letter = letters.find(l => l.id === letterId);
+            if (!letter) return;
+            
+            const contentElement = document.getElementById(`content-${letterId}`);
+            contentElement.contentEditable = true;
+            contentElement.focus();
+            currentEditingElement = contentElement;
+            
+            // Show toolbar
+            showToolbar();
+            
+            // Set toolbar values
+            document.getElementById('fontFamily').value = letter.styles.fontFamily;
+            document.getElementById('fontSize').value = letter.styles.fontSize;
+            document.getElementById('textColor').value = rgbToHex(letter.styles.color);
+            document.getElementById('textAlign').value = letter.styles.textAlign;
+        }
+
+        // ==================== TOOLBAR ====================
+        function showToolbar() {
+            document.getElementById('toolbar').classList.add('active');
+        }
+
+        function hideToolbar() {
+            document.getElementById('toolbar').classList.remove('active');
+            if (currentEditingElement) {
+                currentEditingElement.contentEditable = false;
+                currentEditingElement = null;
+            }
+        }
+
+        function applyFormatting() {
+            if (!currentEditingElement) return;
+            
+            const fontFamily = document.getElementById('fontFamily').value;
+            const fontSize = document.getElementById('fontSize').value;
+            const textColor = document.getElementById('textColor').value;
+            const textAlign = document.getElementById('textAlign').value;
+            
+            currentEditingElement.style.fontFamily = fontFamily;
+            currentEditingElement.style.fontSize = fontSize;
+            currentEditingElement.style.color = textColor;
+            currentEditingElement.style.textAlign = textAlign;
+        }
+
+        function saveCurrentLetter() {
+            if (!currentLetterId || !currentEditingElement) return;
+            
+            const letter = letters.find(l => l.id === currentLetterId);
+            if (!letter) return;
+            
+            letter.content = currentEditingElement.innerText;
+            letter.styles = {
+                fontFamily: document.getElementById('fontFamily').value,
+                fontSize: document.getElementById('fontSize').value,
+                color: document.getElementById('textColor').value,
+                textAlign: document.getElementById('textAlign').value
+            };
+            
+            saveLetters();
+            hideToolbar();
+            showLetter(currentLetterId);
+            
+            alert('✨ Changes saved successfully!');
+        }
+
+        // ==================== DELETE LETTER ====================
+        function deleteLetter(letterId) {
+            if (letters.length === 1) {
+                alert('❌ You must keep at least one letter!');
+                return;
+            }
+            
+            if (confirm('Are you sure you want to delete this letter?')) {
+                letters = letters.filter(l => l.id !== letterId);
+                saveLetters();
+                renderNavigation();
+                showLetter(letters[0].id);
+            }
+        }
+
+        // ==================== NEW LETTER ====================
+        function addNewLetter() {
+            document.getElementById('newLetterModal').classList.add('active');
+            document.getElementById('newLetterTitle').value = '';
+            document.getElementById('newLetterTitle').focus();
+        }
+
+        function closeModal() {
+            document.getElementById('newLetterModal').classList.remove('active');
+        }
+
+        function createNewLetter() {
+            const title = document.getElementById('newLetterTitle').value.trim();
+            if (!title) {
+                alert('Please enter a title for your letter!');
+                return;
+            }
+            
+            const newLetter = {
+                id: Date.now(),
+                title: title,
+                content: 'Start writing your beautiful message here...\n\nPour your heart out! 💕',
+                styles: {
+                    fontFamily: 'Georgia, serif',
+                    fontSize: '1.1em',
+                    color: '#5A4A42',
+                    textAlign: 'left'
+                }
+            };
+            
+            letters.push(newLetter);
+            saveLetters();
+            closeModal();
+            renderNavigation();
+            showLetter(newLetter.id);
+        }
+
+        // ==================== MUSIC ====================
+        function toggleMusic() {
+            const btn = document.getElementById('musicToggle');
+            musicPlaying = !musicPlaying;
+            
+            if (musicPlaying) {
+                btn.textContent = '🎵';
+                btn.style.animation = 'pulse 1s ease-in-out infinite';
+                // In a real implementation, you would start background music here
+                // For example: document.getElementById('backgroundMusic').play();
+            } else {
+                btn.textContent = '🔇';
+                btn.style.animation = 'none';
+                // For example: document.getElementById('backgroundMusic').pause();
+            }
+        }
+
+        // ==================== UTILITY FUNCTIONS ====================
+        function rgbToHex(rgb) {
+            // If already hex, return it
+            if (rgb.startsWith('#')) return rgb;
+            
+            // Convert rgb(r, g, b) to hex
+            const result = rgb.match(/\d+/g);
+            if (!result) return '#5A4A42';
+            
+            return '#' + result.map(x => {
+                const hex = parseInt(x).toString(16);
+                return hex.length === 1 ? '0' + hex : hex;
+            }).join('');
+        }
+
+        // ==================== EVENT LISTENERS ====================
+        document.addEventListener('keydown', (e) => {
+            // Enter on modal
+            if (e.key === 'Enter' && document.getElementById('newLetterModal').classList.contains('active')) {
+                createNewLetter();
+            }
+            // Escape to close modal
+            if (e.key === 'Escape' && document.getElementById('newLetterModal').classList.contains('active')) {
+                closeModal();
+            }
+        });
+
+        // ==================== START APPLICATION ====================
+        window.onload = init;
+    </script>
+</body>
+</html>
